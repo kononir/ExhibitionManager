@@ -9,24 +9,28 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 import javafx.util.converter.DoubleStringConverter;
 
-import javax.tools.Tool;
-import java.util.List;
+import java.util.concurrent.Exchanger;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 class ExhibitionHallsWindow {
+    private Exchanger<ExhibitionHall> exchanger = new Exchanger<>();
+    private ScheduledExecutorService executorService;
+
     ExhibitionHallsWindow(Stage stage) {
         DatabaseController databaseController = new DatabaseController();
 
-        List<ExhibitionHall> exhibitionHalls = databaseController.controlSelectingExhibitionHalls();
+        databaseController.controlSelectingExhibitionHalls(exchanger);
 
-        TableView tableView = new TableView();
+        TableView<ExhibitionHall> tableView = new TableView<>();
+
+        startUpdating(tableView);
 
         tableView.setEditable(true);
 
@@ -71,7 +75,7 @@ class ExhibitionHallsWindow {
             String newValue = editNameColEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = (ExhibitionHall) tableView.getItems().get(rowIndex);
+            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setName(newValue);
         });
@@ -81,7 +85,7 @@ class ExhibitionHallsWindow {
             double newValue = editNameColEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = (ExhibitionHall) tableView.getItems().get(rowIndex);
+            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setSquare(newValue);
         });
@@ -91,7 +95,7 @@ class ExhibitionHallsWindow {
             String newValue = editNameColEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = (ExhibitionHall) tableView.getItems().get(rowIndex);
+            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setAddressStreet(newValue);
         });
@@ -101,7 +105,7 @@ class ExhibitionHallsWindow {
             String newValue = editNameColEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = (ExhibitionHall) tableView.getItems().get(rowIndex);
+            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setAddressBuildingNumber(newValue);
         });
@@ -111,7 +115,7 @@ class ExhibitionHallsWindow {
             String newValue = editNameColEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = (ExhibitionHall) tableView.getItems().get(rowIndex);
+            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setPhoneNumber(newValue);
         });
@@ -121,14 +125,12 @@ class ExhibitionHallsWindow {
             String newValue = editNameColEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = (ExhibitionHall) tableView.getItems().get(rowIndex);
+            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setOwnerName(newValue);
         });
 
-        tableView.setItems(FXCollections.observableArrayList(
-                exhibitionHalls
-        ));
+        tableView.setItems(FXCollections.observableArrayList());
 
         tableView.getColumns().addAll(nameCol, squareCol, addressCol, phoneNumberCol, ownerNameCol);
 
@@ -145,14 +147,16 @@ class ExhibitionHallsWindow {
 
         Button toolAddButton = new Button("Add");
         toolAddButton.setGraphic(new ImageView(ClassLoader.getSystemResource("add.png").toString()));
-        toolAddButton.setOnAction(addEvent -> {
-            new AddingExhibitionHallDialog(tableView.getItems());
-        });
+        toolAddButton.setOnAction(addEvent -> new AddingExhibitionHallDialog(tableView.getItems()));
 
         Button toolDeleteButton = new Button("Delete");
         toolDeleteButton.setGraphic(new ImageView(ClassLoader.getSystemResource("delete.png").toString()));
         toolDeleteButton.setOnAction(deleteEvent -> {
+            ExhibitionHall exhibitionHall = tableView.getSelectionModel().getSelectedItem();
 
+            tableView.getItems().remove(exhibitionHall);
+
+            databaseController.controlDeletingExhibitionHall(exhibitionHall);
         });
 
         ToolBar toolBar = new ToolBar(
@@ -167,6 +171,10 @@ class ExhibitionHallsWindow {
 
         Button cancelButton = new Button("Cancel");
         cancelButton.setOnAction(cancelEvent -> {
+            if (!executorService.isShutdown()) {
+                shutdownUpdating();
+            }
+
             stage.close();
             new MainWindow(stage);
         });
@@ -179,7 +187,40 @@ class ExhibitionHallsWindow {
 
         Scene scene = new Scene(root);
 
+        stage.setOnCloseRequest(closeAction -> {
+            if (!executorService.isShutdown()) {
+                shutdownUpdating();
+            }
+
+            stage.close();
+        });
+
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void startUpdating(TableView tableView) {
+        executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(() -> updateTable(tableView), 0, 10, TimeUnit.MILLISECONDS);
+    }
+
+    private void shutdownUpdating() {
+        executorService.shutdown();
+    }
+
+    private void updateTable(TableView tableView) {
+        try {
+            ExhibitionHall exhibitionHall = exchanger.exchange(null);
+
+            boolean outOfRecords = (exhibitionHall == null);
+
+            if (outOfRecords) {
+                shutdownUpdating();
+            } else {
+                tableView.getItems().add(exhibitionHall);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

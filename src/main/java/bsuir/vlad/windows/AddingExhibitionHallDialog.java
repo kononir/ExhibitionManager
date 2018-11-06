@@ -1,5 +1,6 @@
 package bsuir.vlad.windows;
 
+import bsuir.vlad.database.DatabaseController;
 import bsuir.vlad.model.Address;
 import bsuir.vlad.model.ExhibitionHall;
 import javafx.collections.ObservableList;
@@ -8,7 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -16,8 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class AddingExhibitionHallDialog {
-    public AddingExhibitionHallDialog(ObservableList<ExhibitionHall> exhibitionHalls) {
+class AddingExhibitionHallDialog {
+    AddingExhibitionHallDialog(ObservableList<ExhibitionHall> exhibitionHalls) {
         Stage stage = new Stage();
 
         Label nameLabel = new Label("Name");
@@ -92,6 +92,9 @@ public class AddingExhibitionHallDialog {
             );
 
             exhibitionHalls.add(exhibitionHall);
+
+            DatabaseController controller = new DatabaseController();
+            controller.controlInsertingExhibitionHall(exhibitionHall);
 
             stage.close();
         });

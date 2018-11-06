@@ -2,7 +2,7 @@ package bsuir.vlad.database;
 
 import bsuir.vlad.model.ExhibitionHall;
 
-import java.util.List;
+import java.util.concurrent.Exchanger;
 
 public class DatabaseController {
     private Database database;
@@ -11,11 +11,15 @@ public class DatabaseController {
         database = new Database();
     }
 
-    public List<ExhibitionHall> controlSelectingExhibitionHalls() {
-        return database.selectAllExhibitionHalls();
+    public void controlSelectingExhibitionHalls(Exchanger<ExhibitionHall> exchanger) {
+        database.selectAllExhibitionHalls(exchanger);
     }
 
-    public void controlUpdatingExhibitionHalls() {
+    public void controlInsertingExhibitionHall(ExhibitionHall exhibitionHall) {
+        database.insertExhibitionHall(exhibitionHall);
+    }
 
+    public void controlDeletingExhibitionHall(ExhibitionHall exhibitionHall) {
+        database.deleteExhibitionHall(exhibitionHall);
     }
 }

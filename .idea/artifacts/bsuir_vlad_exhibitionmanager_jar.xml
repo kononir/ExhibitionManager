@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="bsuir.vlad.exhibitionmanager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/bsuir_vlad_exhibitionmanager_jar</output-path>
+    <root id="archive" name="bsuir.vlad.exhibitionmanager.jar">
+      <element id="module-output" name="bsuir.vlad.exhibitionmanager" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.13/mysql-connector-java-8.0.13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.6.1/protobuf-java-3.6.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

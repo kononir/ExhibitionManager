@@ -16,6 +16,9 @@ public class ExhibitionHall {
         this.ownerName = ownerName;
     }
 
+    public ExhibitionHall() {
+    }
+
     public String getName() {
         return name;
     }

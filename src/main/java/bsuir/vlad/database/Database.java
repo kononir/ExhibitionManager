@@ -4,14 +4,16 @@ import bsuir.vlad.model.ExhibitionHall;
 import bsuir.vlad.model.Address;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.Exchanger;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import com.mysql.cj.jdbc.Driver;
 
-public class Database {
+class Database {
     private Connection connection;
 
-    public Database() {
+    Database() {
         try {
             Driver driver = new Driver();
             DriverManager.registerDriver(driver);
@@ -54,48 +56,169 @@ public class Database {
         }
     }
 
-    public List<ExhibitionHall> selectAllExhibitionHalls() {
-        List<ExhibitionHall> exhibitionHalls = new ArrayList<>();
+    void selectAllExhibitionHalls(Exchanger<ExhibitionHall> exchanger) {
+        new Thread(() -> {
+            try {
+                connect();
 
-        try {
-            /*new Thread(() -> {
+                Statement statement = connection.createStatement();
 
-            }).start();*/
-            connect();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM exhibitionhall");
 
-            Statement statement = connection.createStatement();
+                int timeout = 10;
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM exhibitionhall");
+                while (resultSet.next()) {
+                    String name = resultSet.getString("name");
+                    double square = resultSet.getDouble("square");
+                    String street = resultSet.getString("street");
+                    String buildingNumber = resultSet.getString("buildingNumber");
+                    String phoneNumber = resultSet.getString("phoneNumber");
+                    String ownerName = resultSet.getString("ownerName");
 
-            while (resultSet.next()) {
-                String name = resultSet.getString("name");
-                double square = resultSet.getDouble("square");
-                String street = resultSet.getString("street");
-                String buildingNumber = resultSet.getString("buildingNumber");
-                String phoneNumber = resultSet.getString("phoneNumber");
-                String ownerName = resultSet.getString("ownerName");
+                    Address address = new Address(street, buildingNumber);
 
-                Address address = new Address(street, buildingNumber);
+                    ExhibitionHall exhibitionHall = new ExhibitionHall(
+                            name,
+                            square,
+                            address,
+                            phoneNumber,
+                            ownerName
+                    );
 
-                ExhibitionHall exhibitionHall = new ExhibitionHall(
-                        name,
-                        square,
-                        address,
-                        phoneNumber,
-                        ownerName
-                );
+                    exchanger.exchange(exhibitionHall, timeout, TimeUnit.MILLISECONDS);
+                }
 
-                exhibitionHalls.add(exhibitionHall);
+                exchanger.exchange(null, timeout, TimeUnit.MILLISECONDS);
+            } catch (SQLException e) {
+                System.out.println("Connection problems!");
+                e.printStackTrace();
+            } catch (InterruptedException | TimeoutException e) {
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
             }
+        }).start();
+    }
 
-            disconnect();
+    void insertExhibitionHall(ExhibitionHall exhibitionHall) {
+        new Thread(() -> {
+            try {
+                connect();
 
-            return exhibitionHalls;
-        } catch (SQLException e) {
-            System.out.println("Connection problems!");
-            e.printStackTrace();
-        }
+                String sqlQuery = "INSERT INTO exhibitionhall " +
+                        "(name, square, street, buildingNumber, phoneNumber, ownerName) values(?, ?, ?, ?, ?, ?)";
 
-        return exhibitionHalls;
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                int nameIndex = 1;
+                int squareIndex = 2;
+                int streetIndex = 3;
+                int buildingNumberIndex = 4;
+                int phoneNumberIndex = 5;
+                int ownerNameIndex = 6;
+
+                preparedStatement.setString(nameIndex, exhibitionHall.getName());
+                preparedStatement.setDouble(squareIndex, exhibitionHall.getSquare());
+                preparedStatement.setString(streetIndex, exhibitionHall.getAddressStreet());
+                preparedStatement.setString(buildingNumberIndex, exhibitionHall.getAddressBuildingNumber());
+                preparedStatement.setString(phoneNumberIndex, exhibitionHall.getPhoneNumber());
+                preparedStatement.setString(ownerNameIndex, exhibitionHall.getOwnerName());
+
+                preparedStatement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void deleteExhibitionHall(ExhibitionHall exhibitionHall) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery = "DELETE FROM exhibitionhall WHERE (name = ? && square = ? && street = ? " +
+                        "&& buildingNumber = ? && phoneNumber = ? && ownerName = ?)";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                int nameIndex = 1;
+                int squareIndex = 2;
+                int streetIndex = 3;
+                int buildingNumberIndex = 4;
+                int phoneNumberIndex = 5;
+                int ownerNameIndex = 6;
+
+                preparedStatement.setString(nameIndex, exhibitionHall.getName());
+                preparedStatement.setDouble(squareIndex, exhibitionHall.getSquare());
+                preparedStatement.setString(streetIndex, exhibitionHall.getAddressStreet());
+                preparedStatement.setString(buildingNumberIndex, exhibitionHall.getAddressBuildingNumber());
+                preparedStatement.setString(phoneNumberIndex, exhibitionHall.getPhoneNumber());
+                preparedStatement.setString(ownerNameIndex, exhibitionHall.getOwnerName());
+
+                preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void updateExhibitionHall(String updatingColumnName, ExhibitionHall exhibitionHall) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery;
+
+                switch (updatingColumnName) {
+                    case "name":
+                        sqlQuery = "UPDATE exhibitionhall SET name = ? WHERE (square = ? && street = ? " +
+                                "&& buildingNumber = ? && phoneNumber = ? && ownerName = ?)";
+                        break;
+                    case "square":
+                        sqlQuery = "UPDATE exhibitionhall SET square = ? WHERE (name = ? && street = ? " +
+                                "&& buildingNumber = ? && phoneNumber = ? && ownerName = ?)";
+                        break;
+                    case "street":
+                        sqlQuery = "UPDATE exhibitionhall SET street = ? WHERE (name = ? && square = ? " +
+                                "&& buildingNumber = ? && phoneNumber = ? && ownerName = ?)";
+                        break;
+                    case "buildingNumber":
+                        sqlQuery = "UPDATE exhibitionhall SET buildingNumber = ? WHERE (name = ? && square = ? " +
+                                "&& street = ? && phoneNumber = ? && ownerName = ?)";
+                        break;
+                    case "phoneNumber":
+                        sqlQuery = "UPDATE exhibitionhall SET buildingNumber = ? WHERE (name = ? && square = ? " +
+                                "&& street = ? && buildingNumber = ? && ownerName = ?)";
+                        break;
+                    case "ownerName":
+                        sqlQuery = "UPDATE exhibitionhall SET ownerName = ? WHERE (name = ? && square = ? " +
+                                "&& street = ? && buildingNumber = ? && phoneNumber = ?)";
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Wrong name of updating column!");
+                }
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
     }
 }
