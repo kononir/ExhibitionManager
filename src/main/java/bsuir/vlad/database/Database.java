@@ -63,7 +63,7 @@ class Database {
 
                 Statement statement = connection.createStatement();
 
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM exhibitionhall");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM exhibitionhall;");
 
                 int timeout = 10;
 
@@ -108,7 +108,7 @@ class Database {
                 connect();
 
                 String sqlQuery = "INSERT INTO exhibitionhall " +
-                        "(name, square, street, buildingNumber, phoneNumber, ownerName) values(?, ?, ?, ?, ?, ?)";
+                        "(name, square, street, buildingNumber, phoneNumber, ownerName) values(?, ?, ?, ?, ?, ?);";
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
@@ -143,7 +143,7 @@ class Database {
                 connect();
 
                 String sqlQuery = "DELETE FROM exhibitionhall WHERE (name = ? && square = ? && street = ? " +
-                        "&& buildingNumber = ? && phoneNumber = ? && ownerName = ?)";
+                        "&& buildingNumber = ? && phoneNumber = ? && ownerName = ?);";
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
@@ -162,7 +162,6 @@ class Database {
                 preparedStatement.setString(ownerNameIndex, exhibitionHall.getOwnerName());
 
                 preparedStatement.executeUpdate();
-
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
@@ -173,45 +172,45 @@ class Database {
         }).start();
     }
 
-    void updateExhibitionHall(String updatingColumnName, ExhibitionHall exhibitionHall) {
+    void updateExhibitionHall(String updatingColumnName, int updatingRecordIndex, ExhibitionHall exhibitionHall) {
         new Thread(() -> {
             try {
                 connect();
 
-                String sqlQuery;
-
-                switch (updatingColumnName) {
-                    case "name":
-                        sqlQuery = "UPDATE exhibitionhall SET name = ? WHERE (square = ? && street = ? " +
-                                "&& buildingNumber = ? && phoneNumber = ? && ownerName = ?)";
-                        break;
-                    case "square":
-                        sqlQuery = "UPDATE exhibitionhall SET square = ? WHERE (name = ? && street = ? " +
-                                "&& buildingNumber = ? && phoneNumber = ? && ownerName = ?)";
-                        break;
-                    case "street":
-                        sqlQuery = "UPDATE exhibitionhall SET street = ? WHERE (name = ? && square = ? " +
-                                "&& buildingNumber = ? && phoneNumber = ? && ownerName = ?)";
-                        break;
-                    case "buildingNumber":
-                        sqlQuery = "UPDATE exhibitionhall SET buildingNumber = ? WHERE (name = ? && square = ? " +
-                                "&& street = ? && phoneNumber = ? && ownerName = ?)";
-                        break;
-                    case "phoneNumber":
-                        sqlQuery = "UPDATE exhibitionhall SET buildingNumber = ? WHERE (name = ? && square = ? " +
-                                "&& street = ? && buildingNumber = ? && ownerName = ?)";
-                        break;
-                    case "ownerName":
-                        sqlQuery = "UPDATE exhibitionhall SET ownerName = ? WHERE (name = ? && square = ? " +
-                                "&& street = ? && buildingNumber = ? && phoneNumber = ?)";
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Wrong name of updating column!");
-                }
+                String sqlQuery = "UPDATE exhibitionhall SET " + updatingColumnName
+                        + " = ? WHERE id = ?;";
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
+                int columnIndex = 1;
+                int idIndex = 2;
 
+                switch (updatingColumnName) {
+                    case "name":
+                        preparedStatement.setString(columnIndex, exhibitionHall.getName());
+                        break;
+                    case "square":
+                        preparedStatement.setDouble(columnIndex, exhibitionHall.getSquare());
+                        break;
+                    case "street":
+                        preparedStatement.setString(columnIndex, exhibitionHall.getAddressStreet());
+                        break;
+                    case "buildingNumber":
+                        preparedStatement.setString(columnIndex, exhibitionHall.getAddressBuildingNumber());
+                        break;
+                    case "phoneNumber":
+                        preparedStatement.setString(columnIndex, exhibitionHall.getPhoneNumber());
+                        break;
+                    case "ownerName":
+                        preparedStatement.setString(columnIndex, exhibitionHall.getOwnerName());
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Is no such column name in db!");
+                }
+
+                preparedStatement.setInt(idIndex, updatingRecordIndex);
+
+                preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {

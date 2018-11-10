@@ -22,4 +22,12 @@ public class DatabaseController {
     public void controlDeletingExhibitionHall(ExhibitionHall exhibitionHall) {
         database.deleteExhibitionHall(exhibitionHall);
     }
+
+    public void controlUpdatingExhibitionHall(
+            String updatingColumnName,
+            int updatingRecordIndex,
+            ExhibitionHall exhibitionHall
+    ) {
+        database.updateExhibitionHall(updatingColumnName, updatingRecordIndex, exhibitionHall);
+    }
 }

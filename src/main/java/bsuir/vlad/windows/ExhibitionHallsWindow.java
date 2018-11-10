@@ -78,6 +78,11 @@ class ExhibitionHallsWindow {
             ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setName(newValue);
+
+            int updatingRecordIndex = editNameColEvent.getTablePosition().getRow() + 1;
+            databaseController.controlUpdatingExhibitionHall(
+                    "name", updatingRecordIndex, exhibitionHall
+            );
         });
         squareCol.setOnEditCommit(editNameColEvent -> {
             TablePosition<ExhibitionHall, Double> pos = editNameColEvent.getTablePosition();
@@ -88,6 +93,11 @@ class ExhibitionHallsWindow {
             ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setSquare(newValue);
+
+            int updatingRecordIndex = editNameColEvent.getTablePosition().getRow() + 1;
+            databaseController.controlUpdatingExhibitionHall(
+                    "square", updatingRecordIndex, exhibitionHall
+            );
         });
         streetSubCol.setOnEditCommit(editNameColEvent -> {
             TablePosition<ExhibitionHall, String> pos = editNameColEvent.getTablePosition();
@@ -98,6 +108,11 @@ class ExhibitionHallsWindow {
             ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setAddressStreet(newValue);
+
+            int updatingRecordIndex = editNameColEvent.getTablePosition().getRow() + 1;
+            databaseController.controlUpdatingExhibitionHall(
+                    "street", updatingRecordIndex, exhibitionHall
+            );
         });
         buildingNumberSubCol.setOnEditCommit(editNameColEvent -> {
             TablePosition<ExhibitionHall, String> pos = editNameColEvent.getTablePosition();
@@ -108,6 +123,11 @@ class ExhibitionHallsWindow {
             ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setAddressBuildingNumber(newValue);
+
+            int updatingRecordIndex = editNameColEvent.getTablePosition().getRow() + 1;
+            databaseController.controlUpdatingExhibitionHall(
+                    "buildingNumber", updatingRecordIndex, exhibitionHall
+            );
         });
         phoneNumberCol.setOnEditCommit(editNameColEvent -> {
             TablePosition<ExhibitionHall, String> pos = editNameColEvent.getTablePosition();
@@ -118,6 +138,11 @@ class ExhibitionHallsWindow {
             ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setPhoneNumber(newValue);
+
+            int updatingRecordIndex = editNameColEvent.getTablePosition().getRow() + 1;
+            databaseController.controlUpdatingExhibitionHall(
+                    "phoneNumber", updatingRecordIndex, exhibitionHall
+            );
         });
         ownerNameCol.setOnEditCommit(editNameColEvent -> {
             TablePosition<ExhibitionHall, String> pos = editNameColEvent.getTablePosition();
@@ -128,6 +153,11 @@ class ExhibitionHallsWindow {
             ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
 
             exhibitionHall.setOwnerName(newValue);
+
+            int updatingRecordIndex = editNameColEvent.getTablePosition().getRow() + 1;
+            databaseController.controlUpdatingExhibitionHall(
+                    "ownerName", updatingRecordIndex, exhibitionHall
+            );
         });
 
         tableView.setItems(FXCollections.observableArrayList());
@@ -140,7 +170,7 @@ class ExhibitionHallsWindow {
             tc.setMinWidth(minWidth);
         }
 
-        for (TableColumn tc: addressCol.getColumns()) {
+        for (TableColumn tc : addressCol.getColumns()) {
             double minWidth = 150;
             tc.setMinWidth(minWidth);
         }
