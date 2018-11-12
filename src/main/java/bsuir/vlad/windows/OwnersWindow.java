@@ -1,7 +1,7 @@
 package bsuir.vlad.windows;
 
 import bsuir.vlad.database.DatabaseController;
-import bsuir.vlad.model.ExhibitionHall;
+import bsuir.vlad.model.Owner;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,23 +12,22 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.converter.DoubleStringConverter;
 
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-class ExhibitionHallsWindow {
-    private Exchanger<ExhibitionHall> exchanger = new Exchanger<>();
+class OwnersWindow {
+    private Exchanger<Owner> exchanger = new Exchanger<>();
     private ScheduledExecutorService executorService;
 
-    ExhibitionHallsWindow(Stage stage) {
+    OwnersWindow(Stage stage) {
         DatabaseController databaseController = new DatabaseController();
 
-        databaseController.controlSelectingExhibitionHalls(exchanger);
+        databaseController.controlSelectingOwners(exchanger);
 
-        TableView<ExhibitionHall> tableView = new TableView<>();
+        TableView<Owner> tableView = new TableView<>();
 
         startUpdating(tableView);
 
@@ -44,131 +43,93 @@ class ExhibitionHallsWindow {
                 tableViewRightLeft
         ));
 
-        TableColumn<ExhibitionHall, String> nameCol = new TableColumn<>("Name");
-        TableColumn<ExhibitionHall, Double> squareCol = new TableColumn<>("Square");
+        TableColumn<Owner, String> nameCol = new TableColumn<>("Name");
 
-        TableColumn<ExhibitionHall, String> addressCol = new TableColumn<>("Address");
-        TableColumn<ExhibitionHall, String> streetSubCol = new TableColumn<>("Street");
-        TableColumn<ExhibitionHall, String> buildingNumberSubCol = new TableColumn<>("Building Number");
+        TableColumn<Owner, String> addressCol = new TableColumn<>("Address");
+        TableColumn<Owner, String> streetSubCol = new TableColumn<>("Street");
+        TableColumn<Owner, String> buildingNumberSubCol = new TableColumn<>("Building Number");
         addressCol.getColumns().addAll(streetSubCol, buildingNumberSubCol);
 
-        TableColumn<ExhibitionHall, String> phoneNumberCol = new TableColumn<>("Phone Number");
-        TableColumn<ExhibitionHall, String> ownerNameCol = new TableColumn<>("Owner Name");
+        TableColumn<Owner, String> phoneNumberCol = new TableColumn<>("Phone Number");
 
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        squareCol.setCellValueFactory(new PropertyValueFactory<>("square"));
         streetSubCol.setCellValueFactory(new PropertyValueFactory<>("addressStreet"));
         buildingNumberSubCol.setCellValueFactory(new PropertyValueFactory<>("addressBuildingNumber"));
         phoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        ownerNameCol.setCellValueFactory(new PropertyValueFactory<>("ownerName"));
 
         nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        squareCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
         streetSubCol.setCellFactory(TextFieldTableCell.forTableColumn());
         buildingNumberSubCol.setCellFactory(TextFieldTableCell.forTableColumn());
         phoneNumberCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        ownerNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
         nameCol.setOnEditCommit(editEvent -> {
-            TablePosition<ExhibitionHall, String> pos = editEvent.getTablePosition();
+            TablePosition<Owner, String> pos = editEvent.getTablePosition();
 
             String newValue = editEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
+            Owner owner = tableView.getItems().get(rowIndex);
 
-            String updatingRecordName = exhibitionHall.getName();
+            String updatingRecordName = owner.getName();
 
-            exhibitionHall.setName(newValue);
+            owner.setName(newValue);
 
-            databaseController.controlUpdatingExhibitionHall(
-                    "name", updatingRecordName, exhibitionHall
-            );
-        });
-        squareCol.setOnEditCommit(editEvent -> {
-            TablePosition<ExhibitionHall, Double> pos = editEvent.getTablePosition();
-
-            double newValue = editEvent.getNewValue();
-
-            int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
-
-            String updatingRecordName = exhibitionHall.getName();
-
-            exhibitionHall.setSquare(newValue);
-
-            databaseController.controlUpdatingExhibitionHall(
-                    "square", updatingRecordName, exhibitionHall
+            databaseController.controlUpdatingOwner(
+                    "name", updatingRecordName, owner
             );
         });
         streetSubCol.setOnEditCommit(editEvent -> {
-            TablePosition<ExhibitionHall, String> pos = editEvent.getTablePosition();
+            TablePosition<Owner, String> pos = editEvent.getTablePosition();
 
             String newValue = editEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
+            Owner owner = tableView.getItems().get(rowIndex);
 
-            String updatingRecordName = exhibitionHall.getName();
+            String updatingRecordName = owner.getName();
 
-            exhibitionHall.setAddressStreet(newValue);
+            owner.setAddressStreet(newValue);
 
-            databaseController.controlUpdatingExhibitionHall(
-                    "street", updatingRecordName, exhibitionHall
+            databaseController.controlUpdatingOwner(
+                    "street", updatingRecordName, owner
             );
         });
         buildingNumberSubCol.setOnEditCommit(editEvent -> {
-            TablePosition<ExhibitionHall, String> pos = editEvent.getTablePosition();
+            TablePosition<Owner, String> pos = editEvent.getTablePosition();
 
             String newValue = editEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
+            Owner owner = tableView.getItems().get(rowIndex);
 
-            String updatingRecordName = exhibitionHall.getName();
+            String updatingRecordName = owner.getName();
 
-            exhibitionHall.setAddressBuildingNumber(newValue);
+            owner.setAddressBuildingNumber(newValue);
 
-            databaseController.controlUpdatingExhibitionHall(
-                    "buildingNumber", updatingRecordName, exhibitionHall
+            databaseController.controlUpdatingOwner(
+                    "buildingNumber", updatingRecordName, owner
             );
         });
         phoneNumberCol.setOnEditCommit(editEvent -> {
-            TablePosition<ExhibitionHall, String> pos = editEvent.getTablePosition();
+            TablePosition<Owner, String> pos = editEvent.getTablePosition();
 
             String newValue = editEvent.getNewValue();
 
             int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
+            Owner owner = tableView.getItems().get(rowIndex);
 
-            String updatingRecordName = exhibitionHall.getName();
+            String updatingRecordName = owner.getName();
 
-            exhibitionHall.setPhoneNumber(newValue);
+            owner.setPhoneNumber(newValue);
 
-            databaseController.controlUpdatingExhibitionHall(
-                    "phoneNumber", updatingRecordName, exhibitionHall
-            );
-        });
-        ownerNameCol.setOnEditCommit(editEvent -> {
-            TablePosition<ExhibitionHall, String> pos = editEvent.getTablePosition();
-
-            String newValue = editEvent.getNewValue();
-
-            int rowIndex = pos.getRow();
-            ExhibitionHall exhibitionHall = tableView.getItems().get(rowIndex);
-
-            String updatingRecordName = exhibitionHall.getName();
-
-            exhibitionHall.setOwnerName(newValue);
-
-            databaseController.controlUpdatingExhibitionHall(
-                    "ownerName", updatingRecordName, exhibitionHall
+            databaseController.controlUpdatingOwner(
+                    "phoneNumber", updatingRecordName, owner
             );
         });
 
         tableView.setItems(FXCollections.observableArrayList());
 
-        tableView.getColumns().addAll(nameCol, squareCol, addressCol, phoneNumberCol, ownerNameCol);
+        tableView.getColumns().addAll(nameCol, addressCol, phoneNumberCol);
 
         for (Object o : tableView.getColumns()) {
             TableColumn tc = (TableColumn) o;
@@ -183,20 +144,20 @@ class ExhibitionHallsWindow {
 
         Button toolAddButton = new Button("Add");
         toolAddButton.setGraphic(new ImageView(ClassLoader.getSystemResource("add.png").toString()));
-        toolAddButton.setOnAction(addEvent -> new AddingExhibitionHallDialog(tableView.getItems()));
+        toolAddButton.setOnAction(addEvent -> new AddingOwnerDialog(tableView.getItems()));
 
         Button toolDeleteButton = new Button("Delete");
         toolDeleteButton.setGraphic(new ImageView(ClassLoader.getSystemResource("delete.png").toString()));
         toolDeleteButton.setOnAction(deleteEvent -> {
-            SelectionModel<ExhibitionHall> selectionModel = tableView.getSelectionModel();
+            SelectionModel<Owner> selectionModel = tableView.getSelectionModel();
 
-            ExhibitionHall exhibitionHall = selectionModel.getSelectedItem();
+            Owner owner = selectionModel.getSelectedItem();
 
-            String removableRecordName = exhibitionHall.getName();
+            String removableRecordName = owner.getName();
 
-            tableView.getItems().remove(exhibitionHall);
+            tableView.getItems().remove(owner);
 
-            databaseController.controlDeletingExhibitionHall(removableRecordName);
+            databaseController.controlDeletingOwner(removableRecordName);
         });
 
         ToolBar toolBar = new ToolBar(
@@ -250,7 +211,7 @@ class ExhibitionHallsWindow {
 
     private void updateTable(TableView tableView) {
         try {
-            ExhibitionHall exhibitionHall = exchanger.exchange(null);
+            Owner exhibitionHall = exchanger.exchange(null);
 
             boolean outOfRecords = (exhibitionHall == null);
 

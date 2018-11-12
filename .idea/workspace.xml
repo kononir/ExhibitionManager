@@ -7,10 +7,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="009236ce-7978-433b-b426-5a16b6c1b68c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/AddingExhibitionDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/AddingOwnerDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ChoosingExhibitionDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/CurrentExhibitionWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionsWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/OwnersWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/684f27c7-1bc8-4e2b-a310-30b624375c5c.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/684f27c7-1bc8-4e2b-a310-30b624375c5c.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/bsuir_vlad_exhibitionmanager_jar/bsuir.vlad.exhibitionmanager.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsuir_vlad_exhibitionmanager_jar/bsuir.vlad.exhibitionmanager.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bsuir/vlad/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/database/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bsuir/vlad/database/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/database/DatabaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Exhibition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Exhibition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ExhibitionHall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ExhibitionHall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Owner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Owner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionHallsWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionHallsWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bsuir/vlad/database/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bsuir/vlad/database/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bsuir/vlad/database/DatabaseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bsuir/vlad/database/DatabaseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bsuir/vlad/model/Exhibition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bsuir/vlad/model/Exhibition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bsuir/vlad/model/ExhibitionHall.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bsuir/vlad/model/ExhibitionHall.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bsuir/vlad/model/Owner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bsuir/vlad/model/Owner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bsuir/vlad/windows/ExhibitionHallsWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bsuir/vlad/windows/ExhibitionHallsWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bsuir/vlad/windows/MainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bsuir/vlad/windows/MainWindow.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -89,7 +108,7 @@
     <session id="-1416067560">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.33" value="1" />
@@ -100,45 +119,48 @@
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.59" value="1" />
           <entry key="project.open.time.68" value="1" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.open.time.99" value="1" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cell" value="32" />
+          <entry key="cell" value="33" />
           <entry key="dummy" value="12" />
-          <entry key="java" value="10154" />
-          <entry key="sql" value="28" />
-          <entry key="txt" value="11" />
-          <entry key="xml" value="19" />
+          <entry key="java" value="13056" />
+          <entry key="sql" value="118" />
+          <entry key="txt" value="20" />
+          <entry key="xml" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="10147" />
-          <entry key="PLAIN_TEXT" value="23" />
-          <entry key="SQL" value="35" />
-          <entry key="Scratch" value="32" />
-          <entry key="XML" value="19" />
+          <entry key="JAVA" value="13049" />
+          <entry key="PLAIN_TEXT" value="32" />
+          <entry key="SQL" value="125" />
+          <entry key="Scratch" value="33" />
+          <entry key="XML" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="exhibitionhall" value="3" />
+          <entry key="exhibition" value="4" />
+          <entry key="exhibitionhall" value="7" />
           <entry key="iml" value="1" />
-          <entry key="java" value="54" />
-          <entry key="sql" value="2" />
-          <entry key="xml" value="5" />
+          <entry key="java" value="99" />
+          <entry key="owner" value="2" />
+          <entry key="sql" value="3" />
+          <entry key="xml" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Database Element" value="3" />
+          <entry key="Database Element" value="13" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="54" />
-          <entry key="SQL" value="1" />
+          <entry key="JAVA" value="99" />
+          <entry key="SQL" value="2" />
           <entry key="Scratch" value="1" />
-          <entry key="XML" value="5" />
+          <entry key="XML" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.spring.boot.run.usages" />
@@ -148,40 +170,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/database/Database.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-336">
-              <caret line="163" column="50" selection-start-line="163" selection-start-column="50" selection-end-line="163" selection-end-column="50" />
-              <folding>
-                <element signature="method#Database#0;class#Database#0" />
-                <element signature="method#connect#0;class#Database#0" />
-                <element signature="method#disconnect#0;class#Database#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionHallsWindow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="156" column="86" selection-start-line="156" selection-start-column="86" selection-end-line="156" selection-end-column="86" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -194,6 +183,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>stream</find>
+      <find>ExhibitionHall</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -212,20 +202,26 @@
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Exhebition.java" />
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Artist.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Owner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Exhibition.java" />
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ArtistWork.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ExhibitionHallController.java" />
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/DatabaseController.java" />
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Address.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ExhibitionHall.java" />
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/AddingExhibitionHallDialog.java" />
         <option value="$PROJECT_DIR$/src/main/resources/insertExhibitionHall.sql" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Exhibition.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionsWindow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionHallsWindow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ExhibitionHall.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Owner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/OwnersWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/database/DatabaseController.java" />
         <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/database/Database.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionHallsWindow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/AddingOwnerDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/AddingExhibitionDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/MainWindow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/CurrentExhibitionWindow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ChoosingExhibitionDialog.java" />
       </list>
     </option>
   </component>
@@ -256,7 +252,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="10" />
     <option name="y" value="20" />
-    <option name="width" value="1346" />
+    <option name="width" value="1345" />
     <option name="height" value="688" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -265,8 +261,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -327,13 +323,6 @@
               <item name="vlad" type="462c0819:PsiDirectoryNode" />
               <item name="windows" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="ExhibitionManager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ExhibitionManager" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -344,7 +333,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541871590376" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542057851827" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/Students Pane/src/resources" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -354,6 +343,9 @@
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="bsuir.vlad.windows" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\My Programs\ExhibitionManager\src\main\resources" />
     </key>
@@ -448,6 +440,7 @@
       <workItem from="1541674855664" duration="96000" />
       <workItem from="1541675800599" duration="27000" />
       <workItem from="1541855175959" duration="5516000" />
+      <workItem from="1542002914940" duration="23235000" />
     </task>
     <servers />
   </component>
@@ -463,13 +456,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78831000" />
+    <option name="totallyTimeSpent" value="111154000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="20" width="1346" height="688" extended-state="0" />
-    <editor active="true" />
+    <frame x="10" y="20" width="1345" height="688" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23172629" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23579766" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -477,16 +469,16 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4976672" weight="0.3291367" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4984448" visible="true" weight="0.39928058" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3291367" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49727628" weight="0.3291367" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4984448" weight="0.39928058" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="8" weight="0.3291367" />
       <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007776" side_tool="true" weight="0.3291367" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50272375" side_tool="true" weight="0.3291367" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3291367" />
       <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.4992224" weight="0.3291367" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -496,8 +488,8 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
-      <window_info anchor="right" id="Database" order="7" weight="0.32970452" />
-      <window_info anchor="right" id="Maven Projects" order="8" weight="0.32970452" />
+      <window_info anchor="right" id="Database" order="7" weight="0.3291829" />
+      <window_info anchor="right" id="Maven Projects" order="8" weight="0.3291829" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -510,52 +502,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionHallsWindow.java</url>
-          <line>96</line>
+          <url>file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionsWindow.java</url>
+          <line>97</line>
           <properties />
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Owner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ArtistWork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/684f27c7-1bc8-4e2b-a310-30b624375c5c/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/MainWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="22" column="42" lean-forward="true" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Address.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Exhibition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/java/sql/ResultSet.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -585,13 +542,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ExhibitionHall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/javafx-src.zip!/javafx/event/Event.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -607,240 +557,52 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/insertExhibitionHall.sql" />
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+        <state relative-caret-position="352">
+          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/database/DatabaseController.java">
+    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        <state relative-caret-position="17">
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
+    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibition">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
         </state>
       </provider>
     </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/database/Database.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionsWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-336">
-          <caret line="163" column="50" selection-start-line="163" selection-start-column="50" selection-end-line="163" selection-end-column="50" />
-          <folding>
-            <element signature="method#Database#0;class#Database#0" />
-            <element signature="method#connect#0;class#Database#0" />
-            <element signature="method#disconnect#0;class#Database#0" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="118" column="12" lean-forward="true" selection-start-line="118" selection-start-column="12" selection-end-line="118" selection-end-column="61" />
         </state>
       </provider>
     </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/AddingExhibitionHallDialog.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Address.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="96" column="68" selection-start-line="96" selection-start-column="68" selection-end-line="96" selection-end-column="68" />
+        <state relative-caret-position="17">
+          <caret line="2" column="16" lean-forward="true" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ExhibitionHall.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="42" column="4" lean-forward="true" selection-start-line="42" selection-start-column="4" selection-end-line="56" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -851,17 +613,133 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/exhibitionhall">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Artist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/ArtistWork.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/AddingOwnerDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ExhibitionHallsWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="156" column="86" selection-start-line="156" selection-start-column="86" selection-end-line="156" selection-end-column="86" />
+        <state relative-caret-position="-1910">
+          <caret line="52" column="75" lean-forward="true" selection-start-line="52" selection-start-column="75" selection-end-line="52" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/database/DatabaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="68" column="25" lean-forward="true" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
+          <folding>
+            <element signature="method#controlSelectingExhibitions#0;class#DatabaseController#0" />
+            <element signature="method#controlDeletingExhibition#0;class#DatabaseController#0" />
+            <element signature="method#controlUpdatingExhibition#0;class#DatabaseController#0" />
+            <element signature="method#controlUpdatingOwner#0;class#DatabaseController#0" />
+            <element signature="e#2167#2168#0" expanded="true" />
+            <element signature="e#2220#2221#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://684f27c7-1bc8-4e2b-a310-30b624375c5c/schema/exibitinf/table/owner">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Exhibition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="24" lean-forward="true" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/AddingExhibitionDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/OwnersWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="159" column="51" selection-start-line="159" selection-start-column="51" selection-end-line="159" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="36" column="16" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/model/Owner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="68" selection-start-line="7" selection-start-column="68" selection-end-line="7" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/database/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="463" column="4" selection-start-line="463" selection-start-column="4" selection-end-line="463" selection-end-column="4" />
+          <folding>
+            <element signature="method#Database#0;class#Database#0" />
+            <element signature="method#connect#0;class#Database#0" />
+            <element signature="method#disconnect#0;class#Database#0" />
+            <element signature="method#selectAllExhibitionHalls#0;class#Database#0" />
+            <element signature="method#insertExhibitionHall#0;class#Database#0" />
+            <element signature="method#deleteExhibitionHall#0;class#Database#0" />
+            <element signature="method#updateExhibitionHall#0;class#Database#0" />
+            <element signature="method#selectAllExhibitions#0;class#Database#0" />
+            <element signature="method#insertExhibition#0;class#Database#0" />
+            <element signature="method#deleteExhibition#0;class#Database#0" />
+            <element signature="method#updateExhibition#0;class#Database#0" />
+            <element signature="method#selectAllOwners#0;class#Database#0" />
+            <element signature="method#updateOwner#0;class#Database#0" />
+            <element signature="method#deleteOwner#0;class#Database#0" />
+            <element signature="method#insertOwner#0;class#Database#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/AddingExhibitionHallDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1146">
+          <caret line="96" column="68" selection-start-line="96" selection-start-column="68" selection-end-line="96" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/CurrentExhibitionWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bsuir/vlad/windows/ChoosingExhibitionDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
         </state>
       </provider>
     </entry>

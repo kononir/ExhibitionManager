@@ -1113,63 +1113,241 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="280" parent="3" name="exhibitionhall"/>
-    <column id="281" parent="280" name="id">
+    <table id="280" parent="3" name="artist"/>
+    <table id="281" parent="3" name="artistwork"/>
+    <table id="282" parent="3" name="exhibition"/>
+    <table id="283" parent="3" name="exhibitionhall"/>
+    <table id="284" parent="3" name="owner"/>
+    <column id="285" parent="280" name="firstName">
       <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="280" name="name">
+    <column id="286" parent="280" name="lastName">
       <Position>2</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="287" parent="280" name="patronymic">
+      <Position>3</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="288" parent="280" name="birthdayPlace">
+      <Position>4</Position>
+      <DataType>varchar(80)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="289" parent="280" name="birthdayDate">
+      <Position>5</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="290" parent="280" name="vitae">
+      <Position>6</Position>
+      <DataType>varchar(2000)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="291" parent="280" name="education">
+      <Position>7</Position>
+      <DataType>varchar(60)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="292" parent="280" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>lastName</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="293" parent="281" name="name">
+      <Position>1</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="294" parent="281" name="type">
+      <Position>2</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="295" parent="281" name="creationDate">
+      <Position>3</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="296" parent="281" name="width">
+      <Position>4</Position>
+      <DataType>double|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="297" parent="281" name="height">
+      <Position>5</Position>
+      <DataType>double|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="298" parent="281" name="volume">
+      <Position>6</Position>
+      <DataType>double|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="299" parent="281" name="artistName">
+      <Position>7</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="300" parent="281" name="exhebitionName">
+      <Position>8</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="301" parent="281" name="artistWork_name_uindex">
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="302" parent="281" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="303" parent="281" name="artistWork_name_uindex">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>artistWork_name_uindex</UnderlyingIndexName>
+    </key>
+    <column id="304" parent="282" name="type">
+      <Position>1</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="305" parent="282" name="name">
+      <Position>2</Position>
+      <DataType>varchar(60)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="306" parent="282" name="date">
+      <Position>3</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="307" parent="282" name="exhibitionHallName">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="308" parent="282" name="exhibition_name_uindex">
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="309" parent="282" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="310" parent="282" name="exhibition_name_uindex">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>exhibition_name_uindex</UnderlyingIndexName>
+    </key>
+    <column id="311" parent="283" name="name">
+      <Position>1</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="280" name="square">
-      <Position>3</Position>
+    <column id="312" parent="283" name="square">
+      <Position>2</Position>
       <DataType>double unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="280" name="street">
-      <Position>4</Position>
+    <column id="313" parent="283" name="street">
+      <Position>3</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="280" name="buildingNumber">
-      <Position>5</Position>
+    <column id="314" parent="283" name="buildingNumber">
+      <Position>4</Position>
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="280" name="phoneNumber">
-      <Position>6</Position>
+    <column id="315" parent="283" name="phoneNumber">
+      <Position>5</Position>
       <DataType>varchar(15)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="287" parent="280" name="ownerName">
-      <Position>7</Position>
+    <column id="316" parent="283" name="ownerName">
+      <Position>6</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="288" parent="280" name="exhibitionhall_id_uindex">
-      <ColNames>id</ColNames>
+    <index id="317" parent="283" name="exhibitionhall_name_uindex">
+      <ColNames>name</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="289" parent="280" name="PRIMARY">
+    <key id="318" parent="283" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
+      <ColNames>name</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="290" parent="280" name="exhibitionhall_id_uindex">
-      <ColNames>id</ColNames>
-      <UnderlyingIndexName>exhibitionhall_id_uindex</UnderlyingIndexName>
+    <key id="319" parent="283" name="exhibitionhall_name_uindex">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>exhibitionhall_name_uindex</UnderlyingIndexName>
+    </key>
+    <column id="320" parent="284" name="name">
+      <Position>1</Position>
+      <DataType>varchar(60)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="321" parent="284" name="street">
+      <Position>2</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="322" parent="284" name="buildingNumber">
+      <Position>3</Position>
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="323" parent="284" name="phoneNumber">
+      <Position>4</Position>
+      <DataType>varchar(15)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="324" parent="284" name="table_name_name_uindex">
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="325" parent="284" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="326" parent="284" name="table_name_name_uindex">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>table_name_name_uindex</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

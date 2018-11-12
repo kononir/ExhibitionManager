@@ -17,8 +17,28 @@ public class MainWindow {
         });
 
         Button workWithExhibitionsButton = new Button("Work with exhibitions");
+        workWithExhibitionsButton.setOnAction(workEvent -> {
+            stage.close();
+            new ExhibitionsWindow(stage);
+        });
+
         Button workWithOwnersButton = new Button("Work with owners");
+        workWithOwnersButton.setOnAction(workEvent -> {
+            stage.close();
+            new OwnersWindow(stage);
+        });
+
         Button workWithArtistsButton = new Button("Work with artists");
+        Button workWithArtistWorksButton = new Button("Work with artist works");
+
+        Button showListOfExhibitorsButton = new Button("Show exhibitors list of certain exhibition");
+        showListOfExhibitorsButton.setOnAction(showListEvent -> {
+            stage.close();
+            new ChoosingExhibitionDialog(stage);
+        });
+
+        Button showExhibitionHallsList = new Button("Show list of all exhibition halls");
+        Button showExhibitionsList = new Button("Show list of actual exhibitions");
 
         Button exitButton = new Button("Exit");
         exitButton.setOnAction(event -> Platform.exit());
@@ -31,7 +51,7 @@ public class MainWindow {
         pane.setVgap(indent);
         pane.setHgap(indent);
 
-        double paneHeight = 185;
+        double paneHeight = 330;
         pane.setPrefHeight(paneHeight);
 
         pane.getChildren().addAll(
@@ -39,6 +59,10 @@ public class MainWindow {
                 workWithExhibitionsButton,
                 workWithOwnersButton,
                 workWithArtistsButton,
+                workWithArtistWorksButton,
+                showListOfExhibitorsButton,
+                showExhibitionHallsList,
+                showExhibitionsList,
                 exitButton
         );
 
