@@ -10,8 +10,6 @@ public class Exhibition {
 
     private String exhibitionHallName;
 
-    private List<ArtistWork> artistWorks;
-
     public Exhibition(String type, String name, LocalDate date, String exhibitionHallName) {
         this.type = type;
         this.name = name;

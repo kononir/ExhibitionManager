@@ -22,14 +22,12 @@ class AddingExhibitionDialog {
         Label typeLabel = new Label("Type");
         Label nameLabel = new Label("Name");
         Label dateLabel = new Label("Date");
-        Label timeLabel = new Label("Time");
         Label exhibitionHallNameLabel = new Label("Exhibition Hall Name");
 
         VBox labelsVBox = new VBox(
                 typeLabel,
                 nameLabel,
                 dateLabel,
-                timeLabel,
                 exhibitionHallNameLabel
         );
 

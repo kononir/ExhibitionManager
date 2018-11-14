@@ -12,6 +12,6 @@ class ArtistWork {
     private double height;
     private double volume;
 
-    private Artist artist;
-    private Exhibition exhibition;
+    private String artistLastName;
+    private String exhibitionName;
 }

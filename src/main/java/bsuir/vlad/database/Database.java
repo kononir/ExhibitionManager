@@ -1,16 +1,15 @@
 package bsuir.vlad.database;
 
-import bsuir.vlad.model.Exhibition;
-import bsuir.vlad.model.ExhibitionHall;
-import bsuir.vlad.model.Address;
+import bsuir.vlad.model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import bsuir.vlad.model.Owner;
+import bsuir.vlad.usingintable.ArtistWorkInformation;
 import com.mysql.cj.jdbc.Driver;
 
 class Database {
@@ -131,6 +130,7 @@ class Database {
 
                 preparedStatement.execute();
             } catch (SQLException e) {
+                System.out.println("Connection problems!");
                 e.printStackTrace();
             } finally {
                 disconnect();
@@ -155,6 +155,7 @@ class Database {
 
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
+                System.out.println("Connection problems!");
                 e.printStackTrace();
             } finally {
                 disconnect();
@@ -204,6 +205,7 @@ class Database {
 
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
+                System.out.println("Connection problems!");
                 e.printStackTrace();
             } finally {
                 disconnect();
@@ -271,11 +273,12 @@ class Database {
 
                 preparedStatement.setString(typeIndex, exhibition.getType());
                 preparedStatement.setString(nameIndex, exhibition.getName());
-                preparedStatement.setDate(dateIndex, java.sql.Date.valueOf(exhibition.getDate()));
+                preparedStatement.setDate(dateIndex, Date.valueOf(exhibition.getDate().plusDays(1)));
                 preparedStatement.setString(exhibitionHallNameIndex, exhibition.getExhibitionHallName());
 
                 preparedStatement.execute();
             } catch (SQLException e) {
+                System.out.println("Connection problems!");
                 e.printStackTrace();
             } finally {
                 disconnect();
@@ -300,6 +303,7 @@ class Database {
 
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
+                System.out.println("Connection problems!");
                 e.printStackTrace();
             } finally {
                 disconnect();
@@ -330,7 +334,7 @@ class Database {
                         preparedStatement.setString(columnIndex, exhibition.getName());
                         break;
                     case "date":
-                        preparedStatement.setDate(columnIndex, java.sql.Date.valueOf(exhibition.getDate().toString()));
+                        preparedStatement.setDate(columnIndex, java.sql.Date.valueOf(exhibition.getDate()));
                         break;
                     case "exhibitionHallName":
                         preparedStatement.setString(columnIndex, exhibition.getExhibitionHallName());
@@ -343,6 +347,7 @@ class Database {
 
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
+                System.out.println("Connection problems!");
                 e.printStackTrace();
             } finally {
                 disconnect();
@@ -428,6 +433,7 @@ class Database {
 
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
+                System.out.println("Connection problems!");
                 e.printStackTrace();
             } finally {
                 disconnect();
@@ -483,6 +489,262 @@ class Database {
 
                 preparedStatement.execute();
             } catch (SQLException e) {
+                System.out.println("Connection problems!");
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    Exhibition selectExhibition(String exhibitionName) {
+        Exhibition exhibition = null;
+
+        try {
+            connect();
+
+            String sqlQuery = "SELECT * FROM exhibition WHERE name = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            int nameIndex = 1;
+            preparedStatement.setString(nameIndex, exhibitionName);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            String type = resultSet.getString("type");
+            String name = resultSet.getString("name");
+            LocalDate date = resultSet.getDate("date").toLocalDate();
+            String exhibitionHallName = resultSet.getString("exhibitionHallName");
+
+            exhibition = new Exhibition(
+                    type,
+                    name,
+                    date,
+                    exhibitionHallName
+            );
+        } catch (SQLException e) {
+            System.out.println("Connection problems!");
+            e.printStackTrace();
+        } finally {
+            disconnect();
+        }
+
+        return exhibition;
+    }
+
+    void findArtistWorkInformation(String exhibitionName, Exchanger<ArtistWorkInformation> exchanger) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery = "SELECT artistWork.name, artistWork.type, artist.firstName, artist.lastName, " +
+                        "artist.patronymic, artist.birthdayDate, artistwork.creationDate FROM artistwork " +
+                        "INNER JOIN artist ON(artistLastName) WHERE artistwork.exhebitionName = ?;";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                int nameIndex = 1;
+                preparedStatement.setString(nameIndex, exhibitionName);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                int timeout = 10;
+
+                while (resultSet.next()) {
+                    String artistWorkName = resultSet.getString("artistWork.name");
+                    String artistWorkType = resultSet.getString("artistWork.type");
+                    String artistFirstName = resultSet.getString("artist.firstName");
+                    String artistLastName = resultSet.getString("artist.lastName");
+                    String artistPatronymic = resultSet.getString("artist.patronymic");
+                    LocalDate artistBirthdayDate = resultSet.getDate("artist.birthdayDate").toLocalDate();
+                    LocalDate artistWorkCreationDate = resultSet.getDate("artistWork.creationDate").toLocalDate();
+
+                    ArtistWorkInformation information = new ArtistWorkInformation(
+                            artistWorkName,
+                            artistWorkType,
+                            artistFirstName,
+                            artistLastName,
+                            artistPatronymic,
+                            artistBirthdayDate,
+                            artistWorkCreationDate
+                    );
+
+                    exchanger.exchange(information, timeout, TimeUnit.MILLISECONDS);
+                }
+
+                exchanger.exchange(null, timeout, TimeUnit.MILLISECONDS);
+            } catch (SQLException e) {
+                System.out.println("Connection problems!");
+                e.printStackTrace();
+            } catch (InterruptedException | TimeoutException e) {
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void selectAllArtists(Exchanger<Artist> exchanger) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                Statement statement = connection.createStatement();
+
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM artist;");
+
+                int timeout = 10;
+
+                while (resultSet.next()) {
+                    String firstName = resultSet.getString("firstName");
+                    String lastName = resultSet.getString("lastName");
+                    String patronymic = resultSet.getString("patronymic");
+                    String birthdayPlace = resultSet.getString("birthdayPlace");
+                    LocalDate birthdayDate = resultSet.getDate("birthdayDate").toLocalDate();
+                    String vitae = resultSet.getString("vitae");
+                    String education = resultSet.getString("education");
+
+                    Artist artist = new Artist(
+                            firstName,
+                            lastName,
+                            patronymic,
+                            birthdayPlace,
+                            birthdayDate,
+                            vitae,
+                            education
+                    );
+
+                    exchanger.exchange(artist, timeout, TimeUnit.MILLISECONDS);
+                }
+
+                exchanger.exchange(null, timeout, TimeUnit.MILLISECONDS);
+            } catch (SQLException e) {
+                System.out.println("Connection problems!");
+                e.printStackTrace();
+            } catch (InterruptedException | TimeoutException e) {
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void updateArtist(String updatingColumnName, String updatingRecordName, Artist artist) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery = "UPDATE artist SET " + updatingColumnName
+                        + " = ? WHERE lastName = ?;";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                int columnIndex = 1;
+                int nameIndex = 2;
+
+                switch (updatingColumnName) {
+                    case "firstName":
+                        preparedStatement.setString(columnIndex, artist.getFirstName());
+                        break;
+                    case "lastName":
+                        preparedStatement.setString(columnIndex, artist.getLastName());
+                        break;
+                    case "patronymic":
+                        preparedStatement.setString(columnIndex, artist.getPatronymic());
+                        break;
+                    case "birthdayPlace":
+                        preparedStatement.setString(columnIndex, artist.getBirthdayPlace());
+                        break;
+                    case "birthdayDate":
+                        preparedStatement.setDate(columnIndex, java.sql.Date.valueOf(artist.getBirthdayDate()));
+                        break;
+                    case "vitae":
+                        preparedStatement.setString(columnIndex, artist.getVitae());
+                        break;
+                    case "education":
+                        preparedStatement.setString(columnIndex, artist.getEducation());
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Is no such column name in table!");
+                }
+
+                preparedStatement.setString(nameIndex, updatingRecordName);
+
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println("Connection problems!");
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void deleteArtist(String removableRecordName) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery = "DELETE FROM artist WHERE (lastName = ?);";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                int nameIndex = 1;
+
+                preparedStatement.setString(nameIndex, removableRecordName);
+
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void insertArtist(Artist artist) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery = "INSERT INTO artist " +
+                        "(firstName, lastName, patronymic, birthdayPlace, birthdayDate, vitae, education) " +
+                        "values(?, ?, ?, ?, ?, ?, ?);";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                int firstNameIndex = 1;
+                int secondNameIndex = 2;
+                int patronymicIndex = 3;
+                int birthdayPlaceIndex = 4;
+                int birthdayDateIndex = 5;
+                int vitaeIndex = 6;
+                int educationIndex = 7;
+
+                String dateStr = artist.getBirthdayDate().format(DateTimeFormatter.ISO_DATE);
+
+                preparedStatement.setString(firstNameIndex, artist.getFirstName());
+                preparedStatement.setString(secondNameIndex, artist.getLastName());
+                preparedStatement.setString(patronymicIndex, artist.getPatronymic());
+                preparedStatement.setString(birthdayPlaceIndex, artist.getBirthdayPlace());
+                preparedStatement.setDate(birthdayDateIndex, Date.valueOf(artist.getBirthdayDate().plusDays(1)));
+                preparedStatement.setString(vitaeIndex, artist.getVitae());
+                preparedStatement.setString(educationIndex, artist.getEducation());
+
+                preparedStatement.execute();
+            } catch (SQLException e) {
+                System.out.println("Connection problems!");
                 e.printStackTrace();
             } finally {
                 disconnect();

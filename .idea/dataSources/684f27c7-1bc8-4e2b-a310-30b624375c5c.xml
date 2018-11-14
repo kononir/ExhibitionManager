@@ -1197,7 +1197,7 @@
       <DataType>double|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="299" parent="281" name="artistName">
+    <column id="299" parent="281" name="artistLastName">
       <Position>7</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>

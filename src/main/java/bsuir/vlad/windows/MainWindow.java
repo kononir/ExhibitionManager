@@ -29,6 +29,11 @@ public class MainWindow {
         });
 
         Button workWithArtistsButton = new Button("Work with artists");
+        workWithArtistsButton.setOnAction(workAction -> {
+            stage.close();
+            new ArtistsWindow(stage);
+        });
+
         Button workWithArtistWorksButton = new Button("Work with artist works");
 
         Button showListOfExhibitorsButton = new Button("Show exhibitors list of certain exhibition");

@@ -1,5 +1,7 @@
 package bsuir.vlad.windows;
 
+import bsuir.vlad.database.DatabaseController;
+import bsuir.vlad.model.Exhibition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -41,9 +43,12 @@ class ChoosingExhibitionDialog {
         okButton.setOnAction(okEvent -> {
             String exhibitionName = nameTextField.getText();
 
-            stage.close();
+            DatabaseController controller = new DatabaseController();
 
-            new CurrentExhibitionWindow(nextStage, exhibitionName);
+            Exhibition exhibition = controller.controlSelectingExhibition(exhibitionName);
+
+            stage.close();
+            new CurrentExhibitionWindow(exhibition, nextStage);
         });
 
         double buttonsInset = 10;
