@@ -60,7 +60,7 @@ class CurrentExhibitionWindow {
         TableColumn<ArtistWorkInformation, String> artistNameCol = new TableColumn<>("Artist Name");
         artistNameCol.getColumns().addAll(artistFirstNameSubCol, artistLastNameSubCol, artistPatronymicSubCol);
 
-        TableColumn<ArtistWorkInformation, LocalDate> artistBirthdayDateCol = new TableColumn<>("Artist Birthday date");
+        TableColumn<ArtistWorkInformation, Integer> artistAgeCol = new TableColumn<>("Artist Age");
         TableColumn<ArtistWorkInformation, LocalDate> artistWorkCreationDateCol = new TableColumn<>("Artist work Creation date");
 
         artistWorkNameCol.setCellValueFactory(new PropertyValueFactory<>("artistWorkName"));
@@ -68,7 +68,7 @@ class CurrentExhibitionWindow {
         artistFirstNameSubCol.setCellValueFactory(new PropertyValueFactory<>("artistFirstName"));
         artistLastNameSubCol.setCellValueFactory(new PropertyValueFactory<>("artistLastName"));
         artistPatronymicSubCol.setCellValueFactory(new PropertyValueFactory<>("artistPatronymic"));
-        artistBirthdayDateCol.setCellValueFactory(new PropertyValueFactory<>("artistBirthdayDate"));
+        artistAgeCol.setCellValueFactory(new PropertyValueFactory<>("artistAge"));
         artistWorkCreationDateCol.setCellValueFactory(new PropertyValueFactory<>("artistWorkCreationDate"));
 
         tableView.setItems(FXCollections.observableArrayList());
@@ -77,7 +77,7 @@ class CurrentExhibitionWindow {
                 artistWorkNameCol,
                 artistWorkTypeCol,
                 artistNameCol,
-                artistBirthdayDateCol,
+                artistAgeCol,
                 artistWorkCreationDateCol
         );
 

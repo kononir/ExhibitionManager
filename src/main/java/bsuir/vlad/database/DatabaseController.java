@@ -1,10 +1,8 @@
 package bsuir.vlad.database;
 
-import bsuir.vlad.model.Artist;
-import bsuir.vlad.model.Exhibition;
-import bsuir.vlad.model.ExhibitionHall;
-import bsuir.vlad.model.Owner;
+import bsuir.vlad.model.*;
 import bsuir.vlad.usingintable.ArtistWorkInformation;
+import bsuir.vlad.usingintable.ExhibitionInformation;
 
 import java.util.concurrent.Exchanger;
 
@@ -93,5 +91,25 @@ public class DatabaseController {
 
     public void controlInsertingArtist(Artist artist) {
         database.insertArtist(artist);
+    }
+
+    public void controlFindingExhibitionsInformationOfAllDates(Exchanger<ExhibitionInformation> exchanger) {
+        database.findExhibitionsInformationOfAllDates(exchanger);
+    }
+
+    public void controlSelectingArtistWorks(Exchanger<ArtistWork> exchanger) {
+        database.selectAllArtistWorks(exchanger);
+    }
+
+    public void controlUpdatingArtistWork(String updatingColumnName, String updatingRecordName, ArtistWork artistWork) {
+        database.updateArtistWork(updatingColumnName, updatingRecordName, artistWork);
+    }
+
+    public void controlInsertingArtistWork(ArtistWork artistWork) {
+        database.insertArtistWork(artistWork);
+    }
+
+    public void controlDeletingArtistWork(String removableRecordName) {
+        database.deleteArtistWork(removableRecordName);
     }
 }

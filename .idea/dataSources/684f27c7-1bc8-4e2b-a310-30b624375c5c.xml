@@ -1118,13 +1118,13 @@
     <table id="282" parent="3" name="exhibition"/>
     <table id="283" parent="3" name="exhibitionhall"/>
     <table id="284" parent="3" name="owner"/>
-    <column id="285" parent="280" name="firstName">
+    <column id="285" parent="280" name="lastName">
       <Position>1</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="280" name="lastName">
+    <column id="286" parent="280" name="firstName">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
@@ -1225,7 +1225,7 @@
     </key>
     <column id="304" parent="282" name="type">
       <Position>1</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>varchar(60)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1243,7 +1243,7 @@
     </column>
     <column id="307" parent="282" name="exhibitionHallName">
       <Position>4</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

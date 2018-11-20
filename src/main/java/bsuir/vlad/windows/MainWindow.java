@@ -35,6 +35,10 @@ public class MainWindow {
         });
 
         Button workWithArtistWorksButton = new Button("Work with artist works");
+        workWithArtistWorksButton.setOnAction(workAction -> {
+            stage.close();
+            new ArtistWorksWindow(stage);
+        });
 
         Button showListOfExhibitorsButton = new Button("Show exhibitors list of certain exhibition");
         showListOfExhibitorsButton.setOnAction(showListEvent -> {
@@ -43,10 +47,15 @@ public class MainWindow {
         });
 
         Button showExhibitionHallsList = new Button("Show list of all exhibition halls");
+
         Button showExhibitionsList = new Button("Show list of actual exhibitions");
+        showExhibitionsList.setOnAction(showListEvent -> {
+            stage.close();
+            new ActualExhibitionsListWindow(stage);
+        });
 
         Button exitButton = new Button("Exit");
-        exitButton.setOnAction(event -> Platform.exit());
+        exitButton.setOnAction(exitEvent -> Platform.exit());
 
         FlowPane pane = new FlowPane();
         pane.setOrientation(Orientation.VERTICAL);

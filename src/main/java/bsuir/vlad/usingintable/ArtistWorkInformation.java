@@ -8,7 +8,7 @@ public class ArtistWorkInformation {
     private String artistFirstName;
     private String artistLastName;
     private String artistPatronymic;
-    private LocalDate artistBirthdayDate;
+    private int artistAge;
     private LocalDate artistWorkCreationDate;
 
     public ArtistWorkInformation(
@@ -17,7 +17,7 @@ public class ArtistWorkInformation {
             String artistFirstName,
             String artistLastName,
             String artistPatronymic,
-            LocalDate artistBirthdayDate,
+            int artistAge,
             LocalDate artistWorkCreationDate
     ) {
         this.artistWorkName = artistWorkName;
@@ -25,7 +25,7 @@ public class ArtistWorkInformation {
         this.artistFirstName = artistFirstName;
         this.artistLastName = artistLastName;
         this.artistPatronymic = artistPatronymic;
-        this.artistBirthdayDate = artistBirthdayDate;
+        this.artistAge = artistAge;
         this.artistWorkCreationDate = artistWorkCreationDate;
     }
 
@@ -49,8 +49,8 @@ public class ArtistWorkInformation {
         return artistPatronymic;
     }
 
-    public LocalDate getArtistBirthdayDate() {
-        return artistBirthdayDate;
+    public int getArtistAge() {
+        return artistAge;
     }
 
     public LocalDate getArtistWorkCreationDate() {

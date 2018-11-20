@@ -1,12 +1,15 @@
 package bsuir.vlad.windows;
 
 import bsuir.vlad.database.DatabaseController;
-import bsuir.vlad.model.Exhibition;
+import bsuir.vlad.model.ArtistWork;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -15,20 +18,28 @@ import javafx.stage.StageStyle;
 
 import java.time.LocalDate;
 
-class AddingExhibitionDialog {
-    AddingExhibitionDialog(ObservableList<Exhibition> exhibitions) {
+class AddingArtistWorkDialog {
+    AddingArtistWorkDialog(ObservableList<ArtistWork> artistWorks) {
         Stage stage = new Stage();
 
-        Label typeLabel = new Label("Type");
         Label nameLabel = new Label("Name");
-        Label dateLabel = new Label("Date");
-        Label exhibitionHallNameLabel = new Label("Exhibition Hall Name");
+        Label typeLabel = new Label("Type");
+        Label creationDateLabel = new Label("Creation Date");
+        Label widthLabel = new Label("Width");
+        Label heightLabel = new Label("Height");
+        Label volumeLabel = new Label("Volume");
+        Label artistLastNameLabel = new Label("Artist Last name");
+        Label exhibitionNameLabel = new Label("Exhibition Name");
 
         VBox labelsVBox = new VBox(
-                typeLabel,
                 nameLabel,
-                dateLabel,
-                exhibitionHallNameLabel
+                typeLabel,
+                creationDateLabel,
+                widthLabel,
+                heightLabel,
+                volumeLabel,
+                artistLastNameLabel,
+                exhibitionNameLabel
         );
 
         double labelsSpacing = 13;
@@ -36,18 +47,27 @@ class AddingExhibitionDialog {
         labelsVBox.setSpacing(labelsSpacing);
         labelsVBox.setPrefWidth(labelsWidth);
 
-        TextField typeTextField = new TextField();
         TextField nameTextField = new TextField();
+        TextField typeTextField = new TextField();
 
         DatePicker datePicker = new DatePicker();
 
-        TextField exhibitionHallNameTextField = new TextField();
+        TextField widthTextField = new TextField();
+        TextField heightTextField = new TextField();
+        TextField volumeTextField = new TextField();
+
+        TextField artistLastNameTextField = new TextField();
+        TextField exhibitionNameTextField = new TextField();
 
         VBox textFieldsVBox = new VBox(
-                typeTextField,
                 nameTextField,
+                typeTextField,
                 datePicker,
-                exhibitionHallNameTextField
+                widthTextField,
+                heightTextField,
+                volumeTextField,
+                artistLastNameTextField,
+                exhibitionNameTextField
         );
 
         double textFieldsSpace = 5;
@@ -67,22 +87,30 @@ class AddingExhibitionDialog {
 
         Button okButton = new Button("OK");
         okButton.setOnAction(okEvent -> {
-            String type = typeTextField.getText();
             String name = nameTextField.getText();
-            LocalDate date = datePicker.getValue();
-            String exhibitionHallName = exhibitionHallNameTextField.getText();
+            String type = typeTextField.getText();
+            LocalDate creationDate = datePicker.getValue();
+            Double width = Double.valueOf(widthTextField.getText());
+            Double height = Double.valueOf(heightTextField.getText());
+            Double volume = Double.valueOf(volumeTextField.getText());
+            String artistLastName = artistLastNameTextField.getText();
+            String exhibitionName = exhibitionNameTextField.getText();
 
-            Exhibition exhibition = new Exhibition(
-                    type,
+            ArtistWork artistWork = new ArtistWork(
                     name,
-                    date,
-                    exhibitionHallName
+                    type,
+                    creationDate,
+                    width,
+                    height,
+                    volume,
+                    artistLastName,
+                    exhibitionName
             );
 
-            exhibitions.add(exhibition);
+            artistWorks.add(artistWork);
 
             DatabaseController controller = new DatabaseController();
-            controller.controlInsertingExhibition(exhibition);
+            controller.controlInsertingArtistWork(artistWork);
 
             stage.close();
         });

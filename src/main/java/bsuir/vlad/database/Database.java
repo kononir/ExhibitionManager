@@ -4,12 +4,12 @@ import bsuir.vlad.model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import bsuir.vlad.usingintable.ArtistWorkInformation;
+import bsuir.vlad.usingintable.ExhibitionInformation;
 import com.mysql.cj.jdbc.Driver;
 
 class Database {
@@ -370,8 +370,8 @@ class Database {
 
                 while (resultSet.next()) {
                     String name = resultSet.getString("name");
-                    String addressStreet = resultSet.getString("addressStreet");
-                    String addressBuildingNumber = resultSet.getString("addressBuildingNumber");
+                    String addressStreet = resultSet.getString("street");
+                    String addressBuildingNumber = resultSet.getString("buildingNumber");
                     String phoneNumber = resultSet.getString("phoneNumber");
 
                     Address address = new Address(addressStreet, addressBuildingNumber);
@@ -540,9 +540,17 @@ class Database {
             try {
                 connect();
 
-                String sqlQuery = "SELECT artistWork.name, artistWork.type, artist.firstName, artist.lastName, " +
-                        "artist.patronymic, artist.birthdayDate, artistwork.creationDate FROM artistwork " +
-                        "INNER JOIN artist ON(artistLastName) WHERE artistwork.exhebitionName = ?;";
+                String sqlQuery =
+                        "SELECT artistWork.name, " +
+                                "artistWork.type, " +
+                                "artist.firstName, " +
+                                "artist.lastName, " +
+                                "artist.patronymic, " +
+                                "TIMESTAMPDIFF(YEAR, artist.birthdayDate, CURDATE()) AS age, " +
+                                "artistwork.creationDate " +
+                        "FROM artistwork " +
+                        "INNER JOIN artist ON(artistwork.artistLastName = artist.lastName) " +
+                        "WHERE artistwork.exhebitionName = ?;";
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
@@ -551,7 +559,7 @@ class Database {
 
                 ResultSet resultSet = preparedStatement.executeQuery();
 
-                int timeout = 10;
+                int timeout = 20;
 
                 while (resultSet.next()) {
                     String artistWorkName = resultSet.getString("artistWork.name");
@@ -559,7 +567,10 @@ class Database {
                     String artistFirstName = resultSet.getString("artist.firstName");
                     String artistLastName = resultSet.getString("artist.lastName");
                     String artistPatronymic = resultSet.getString("artist.patronymic");
-                    LocalDate artistBirthdayDate = resultSet.getDate("artist.birthdayDate").toLocalDate();
+
+                    int ageIndex = 6;
+                    int artistAge = resultSet.getInt(ageIndex);
+
                     LocalDate artistWorkCreationDate = resultSet.getDate("artistWork.creationDate").toLocalDate();
 
                     ArtistWorkInformation information = new ArtistWorkInformation(
@@ -568,7 +579,7 @@ class Database {
                             artistFirstName,
                             artistLastName,
                             artistPatronymic,
-                            artistBirthdayDate,
+                            artistAge,
                             artistWorkCreationDate
                     );
 
@@ -732,8 +743,6 @@ class Database {
                 int vitaeIndex = 6;
                 int educationIndex = 7;
 
-                String dateStr = artist.getBirthdayDate().format(DateTimeFormatter.ISO_DATE);
-
                 preparedStatement.setString(firstNameIndex, artist.getFirstName());
                 preparedStatement.setString(secondNameIndex, artist.getLastName());
                 preparedStatement.setString(patronymicIndex, artist.getPatronymic());
@@ -745,6 +754,221 @@ class Database {
                 preparedStatement.execute();
             } catch (SQLException e) {
                 System.out.println("Connection problems!");
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void findExhibitionsInformationOfAllDates(Exchanger<ExhibitionInformation> exchanger) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery =
+                        "SELECT exhibition.name, exhibitionhall.street, exhibitionhall.buildingNumber " +
+                                "FROM exhibition " +
+                                "INNER JOIN exhibitionhall " +
+                                "ON (exhibition.exhibitionHallName = exhibitionhall.name) " +
+                                "WHERE date = CURDATE();";
+
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sqlQuery);
+
+                int timeout = 10;
+
+                while (resultSet.next()) {
+                    String exhibitionName = resultSet.getString("exhibition.name");
+                    String exhibitionHallStreet = resultSet.getString("exhibitionhall.street");
+                    String exhibitionHallBuildingNumber = resultSet.getString("exhibitionhall.buildingNumber");
+
+                    Address exhibitionHallAddress = new Address(exhibitionHallStreet, exhibitionHallBuildingNumber);
+
+                    ExhibitionInformation exhibitionInformation = new ExhibitionInformation(
+                            exhibitionName, exhibitionHallAddress
+                    );
+
+                    exchanger.exchange(exhibitionInformation, timeout, TimeUnit.MILLISECONDS);
+                }
+
+                exchanger.exchange(null, timeout, TimeUnit.MILLISECONDS);
+            } catch (SQLException e) {
+                System.out.println("Connection problems!");
+                e.printStackTrace();
+            } catch (InterruptedException | TimeoutException e) {
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void selectAllArtistWorks(Exchanger<ArtistWork> exchanger) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                Statement statement = connection.createStatement();
+
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM artistwork;");
+
+                int timeout = 10;
+
+                while (resultSet.next()) {
+                    String name = resultSet.getString("name");
+                    String type = resultSet.getString("type");
+                    LocalDate creationDate = resultSet.getDate("creationDate").toLocalDate();
+                    Double width = resultSet.getDouble("width");
+                    Double height = resultSet.getDouble("height");
+                    Double volume = resultSet.getDouble("volume");
+                    String artistLastName = resultSet.getString("artistLastName");
+                    String exhebitionName = resultSet.getString("exhebitionName");
+
+                    ArtistWork artistWork = new ArtistWork(
+                            name,
+                            type,
+                            creationDate,
+                            width,
+                            height,
+                            volume,
+                            artistLastName,
+                            exhebitionName
+                    );
+
+                    exchanger.exchange(artistWork, timeout, TimeUnit.MILLISECONDS);
+                }
+
+                exchanger.exchange(null, timeout, TimeUnit.MILLISECONDS);
+            } catch (SQLException e) {
+                System.out.println("Connection problems!");
+                e.printStackTrace();
+            } catch (InterruptedException | TimeoutException e) {
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void updateArtistWork(String updatingColumnName, String updatingRecordName, ArtistWork artistWork) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery = "UPDATE artistwork SET " + updatingColumnName
+                        + " = ? WHERE name = ?;";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                int columnIndex = 1;
+                int nameIndex = 2;
+
+                switch (updatingColumnName) {
+                    case "name":
+                        preparedStatement.setString(columnIndex, artistWork.getName());
+                        break;
+                    case "type":
+                        preparedStatement.setString(columnIndex, artistWork.getType());
+                        break;
+                    case "creationDate":
+                        preparedStatement.setDate(columnIndex, Date.valueOf(artistWork.getCreationDate()));
+                        break;
+                    case "width":
+                        preparedStatement.setDouble(columnIndex, artistWork.getWidth());
+                        break;
+                    case "height":
+                        preparedStatement.setDouble(columnIndex, artistWork.getHeight());
+                        break;
+                    case "volume":
+                        preparedStatement.setDouble(columnIndex, artistWork.getVolume());
+                        break;
+                    case "artistLastName":
+                        preparedStatement.setString(columnIndex, artistWork.getArtistLastName());
+                        break;
+                    case "exhibitionName":
+                        preparedStatement.setString(columnIndex, artistWork.getExhibitionName());
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Is no such column name in table!");
+                }
+
+                preparedStatement.setString(nameIndex, updatingRecordName);
+
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println("Connection problems!");
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void insertArtistWork(ArtistWork artistWork) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery = "INSERT INTO artistwork " +
+                        "(name, type, creationDate, width, height, volume, artistLastName, exhebitionName) " +
+                        "values(?, ?, ?, ?, ?, ?, ?, ?);";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                int nameIndex = 1;
+                int typeIndex = 2;
+                int creationDateIndex = 3;
+                int widthIndex = 4;
+                int heightIndex = 5;
+                int volumeIndex = 6;
+                int artistLastNameIndex = 7;
+                int exhebitionNameIndex = 8;
+
+                preparedStatement.setString(nameIndex, artistWork.getName());
+                preparedStatement.setString(typeIndex, artistWork.getType());
+                preparedStatement.setDate(creationDateIndex, Date.valueOf(artistWork.getCreationDate().plusDays(1)));
+                preparedStatement.setDouble(widthIndex, artistWork.getWidth());
+                preparedStatement.setDouble(heightIndex, artistWork.getHeight());
+                preparedStatement.setDouble(volumeIndex, artistWork.getVolume());
+                preparedStatement.setString(artistLastNameIndex, artistWork.getArtistLastName());
+                preparedStatement.setString(exhebitionNameIndex, artistWork.getExhibitionName());
+
+                preparedStatement.execute();
+            } catch (SQLException e) {
+                System.out.println("Connection problems!");
+                e.printStackTrace();
+            } finally {
+                disconnect();
+
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
+    void deleteArtistWork(String removableRecordName) {
+        new Thread(() -> {
+            try {
+                connect();
+
+                String sqlQuery = "DELETE FROM artistwork WHERE (name = ?);";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                int nameIndex = 1;
+
+                preparedStatement.setString(nameIndex, removableRecordName);
+
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
                 disconnect();

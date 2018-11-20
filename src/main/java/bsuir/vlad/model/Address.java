@@ -9,19 +9,19 @@ public class Address {
         this.buildingNumber = buildingNumber;
     }
 
-    String getStreet() {
+    public String getStreet() {
         return street;
     }
 
-    void setStreet(String street) {
+    public void setStreet(String street) {
         this.street = street;
     }
 
-    String getBuildingNumber() {
+    public String getBuildingNumber() {
         return buildingNumber;
     }
 
-    void setBuildingNumber(String buildingNumber) {
+    public void setBuildingNumber(String buildingNumber) {
         this.buildingNumber = buildingNumber;
     }
 }
